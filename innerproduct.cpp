@@ -33,7 +33,18 @@ double rec_cilkified(double * a, double * b, int n)
 
 double loop_cilkified(double * a, double * b, int n)
 {
-	return 0;
+	double x[n / COARSENESS];
+	cilk_for (int i = 0; i < n / COARSENESS; i++){
+		x[i] = 0;
+		int offset = i * COARSENESS;
+		for(int j = 0; j < COARSENESS; j++){
+			x[i] += a[offset + j] + b[offset + j];
+		}
+	}
+	double sum = 0;
+	for(int k = 0; k < n / COARSENESS; k++)
+		sum += x[k];
+	return sum;
 }
 
 
