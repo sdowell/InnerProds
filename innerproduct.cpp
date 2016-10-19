@@ -16,7 +16,19 @@
 
 double rec_cilkified(double * a, double * b, int n)
 {
-	return 0;
+	if(n < COARSENESS){
+		int i;
+		double x = 0;
+		for(i = 0; i < n; i++)
+			x += a[i] + b[i];
+		return x;
+	}
+	else{
+		double x1 = cilk_spawn rec_cilkified(a,b,n/2);
+		double x2 = cilk_spawn rec_cilkified(&a[n/2],&b[n/2],n/2);
+		cilk_sync;
+		return x1 + x2;
+	}
 }
 
 double loop_cilkified(double * a, double * b, int n)
