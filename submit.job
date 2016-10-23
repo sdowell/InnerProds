@@ -10,4 +10,4 @@
 #This job runs with 1 node, 8 cores per node for a total of 24 cores.
 #ibrun in verbose mode will give binding detail
 cd /home/$USER/hw2/public/CGsolver
-ibrun -v ./cgsolve 2000 out.txt
+ibrun -v ./innerproduct 2000 out.txt
