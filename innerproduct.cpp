@@ -19,13 +19,15 @@ double rec_cilkified(double * a, double * b, int n)
 	if(n < COARSENESS){
 		int i;
 		double x = 0;
-		for(i = 0; i < n; i++)
-			x += a[i] + b[i];
+		for(i = 0; i < n; i++){
+			x += a[i] * b[i];
+			//std::cout << x << " = " << a[i] << " + " << b[i] << std::endl;
+		}
 		return x;
 	}
 	else{
 		double x1 = cilk_spawn rec_cilkified(a,b,n/2);
-		double x2 = cilk_spawn rec_cilkified(&a[n/2],&b[n/2],n/2);
+		double x2 = rec_cilkified(&a[n/2],&b[n/2],n - n/2);
 		cilk_sync;
 		return x1 + x2;
 	}
@@ -38,7 +40,7 @@ double loop_cilkified(double * a, double * b, int n)
 		x[i] = 0;
 		int offset = i * COARSENESS;
 		for(int j = 0; j < COARSENESS; j++){
-			x[i] += a[offset + j] + b[offset + j];
+			x[i] += a[offset + j] * b[offset + j];
 		}
 	}
 	double sum = 0;
@@ -73,7 +75,9 @@ int inn_prod_driver(int n)
 	}
     	std::random_shuffle(a, a + n);
 	std::random_shuffle(b, b + n);
-
+/*	for(int i=0; i < n; i++){
+		std::cout << "a["  << i << "] = " << a[i] << ", b[" << i << "] = " << b[i] << std::endl;
+	}*/
 	double seqresult = std::inner_product(a, a+n, b, (double)0);	
 
 	long t1 = example_get_time();
