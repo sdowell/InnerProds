@@ -35,16 +35,25 @@ double rec_cilkified(double * a, double * b, int n)
 
 double loop_cilkified(double * a, double * b, int n)
 {
-	double x[n / COARSENESS];
-	cilk_for (int i = 0; i < n / COARSENESS; i++){
+	if(n < COARSENESS){
+		return std::inner_product(a, a+n, b, (double)0);
+	}
+	int size = n / COARSENESS;
+	if(n % COARSENESS > 0)
+		size++;
+	double x[size];
+	cilk_for (int i = 0; i < size; i++){
 		x[i] = 0;
 		int offset = i * COARSENESS;
-		for(int j = 0; j < COARSENESS; j++){
+		int coarse = COARSENESS;
+		if(n - offset < COARSENESS)
+			coarse = n - offset;
+		for(int j = 0; j < coarse; j++){
 			x[i] += a[offset + j] * b[offset + j];
 		}
 	}
 	double sum = 0;
-	for(int k = 0; k < n / COARSENESS; k++)
+	for(int k = 0; k < size; k++)
 		sum += x[k];
 	return sum;
 }
@@ -52,7 +61,10 @@ double loop_cilkified(double * a, double * b, int n)
 
 double hyperobject_cilkified(double * a, double * b, int n)
 {
-        return 0;
+	cilk::reducer_opadd<double> sum;
+	cilk_for(int i = 0; i < n; i++)
+		sum += a[i] * b[i];
+        return sum.get_value();
 }
 
 
