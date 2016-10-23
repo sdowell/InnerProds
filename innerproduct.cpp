@@ -74,12 +74,12 @@ int inn_prod_driver(int n)
     	std::random_shuffle(a, a + n);
 	std::random_shuffle(b, b + n);
 
-	double seqresult = std::inner_product(a, a+n, b, 0);	
+	double seqresult = std::inner_product(a, a+n, b, (double)0);	
 
 	long t1 = example_get_time();
 	for(int i=0; i< ITERS; ++i)
 	{
-		seqresult = std::inner_product(a, a+n, b, 0);	
+		seqresult = std::inner_product(a, a+n, b, (double)0);	
 	}
 	long t2 = example_get_time();
 
