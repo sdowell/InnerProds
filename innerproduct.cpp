@@ -11,7 +11,7 @@
 
 #include "example_util_gettime.h"
 
-#define COARSENESS 100
+#define COARSENESS 100000000
 #define ITERS 10
 
 double rec_cilkified(double * a, double * b, int n)
@@ -174,6 +174,6 @@ int main(int argc, char* argv[])
     if (argc > 1) {
         n = std::atoi(argv[1]);
     }
-
+    std::cout << "Solving for vector size: " << n << std::endl;
     return inn_prod_driver(n);
 }

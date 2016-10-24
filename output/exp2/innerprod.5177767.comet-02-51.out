@@ -1,0 +1,17 @@
+Solving for vector size: 100000000
+Sequential time: 0.1097 seconds
+Recursive cilkified time:0.0285 seconds
+Speedup is: 3.84912
+Sequential result is: 2.50017e+23
+Recursive cilkified result is: 2.50017e+23
+Result is correct
+Nested loop cilkified time: 0.0283 seconds
+Speedup is: 3.87633
+Sequential result is: 2.50017e+23
+Loop cilkified result is: 2.50017e+23
+Result is correct
+Hyperobject cilkified time:0.0261 seconds
+Speedup is: 4.20307
+Sequential result is: 2.50017e+23
+Hyperobject result is: 2.50017e+23
+Result is correct

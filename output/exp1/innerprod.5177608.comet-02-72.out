@@ -1,0 +1,17 @@
+Solving for vector size: 10000
+Sequential time: 0 seconds
+Recursive cilkified time:0.0001 seconds
+Speedup is: 0
+Sequential result is: 2.49794e+11
+Recursive cilkified result is: 2.49794e+11
+Result is correct
+Nested loop cilkified time: 0 seconds
+Speedup is: -nan
+Sequential result is: 2.49794e+11
+Loop cilkified result is: 2.49794e+11
+Result is correct
+Hyperobject cilkified time:0 seconds
+Speedup is: -nan
+Sequential result is: 2.49794e+11
+Hyperobject result is: 2.49794e+11
+Result is correct
